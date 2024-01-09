@@ -1,6 +1,6 @@
 //variables from the DOM
 
-var timeElement = document.getElementById("#timer");
+var timeElement = document.getElementById("timer");
 
 //varibales in global scope
 var countdown = 100;
