@@ -9,3 +9,7 @@ button {
 a {
   text-decoration: none;
 }
+
+.choice {
+  min-width: 150px;
+}
