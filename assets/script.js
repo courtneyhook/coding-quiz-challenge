@@ -6,10 +6,12 @@ var chooseC = document.getElementById("choice-c");
 var chooseD = document.getElementById("choice-d");
 var timer = document.getElementById("timer");
 var startButton = document.getElementById("start-button");
-
+var questionFeedback = document.getElementById("feedback");
 //variables
 var highScore = 0;
 var time = 100;
+var questionIndex = 0;
+var score;
 
 // question set
 var questions = [
@@ -27,17 +29,17 @@ var questions = [
 ];
 
 var answers = [
-  "answer1",
-  "answer2",
-  "answer3",
-  "answer4",
-  "answer5",
-  "answer6",
-  "answer7",
-  "answer8",
-  "answer9",
-  "answer10",
-  "answer11",
+  "choiceA1",
+  "choiceB2",
+  "choiceC3",
+  "choiceD4",
+  "choiceA5",
+  "choiceB6",
+  "choiceC7",
+  "choiceD8",
+  "choiceA9",
+  "choiceB10",
+  "choiceC11",
 ];
 
 //before the game starts, the question and choices will be hidden
@@ -72,6 +74,89 @@ function startQuiz() {
   setTimer();
   startButton.style.display = "none";
   displayQuestion();
+  nextQuestion();
+}
+
+function nextQuestion() {
+  if (questionIndex === questions.length) {
+    score = time;
+  }
+  enableChoices();
+  feedback.textContent = "";
+  quizQuestion.textContent = questions[questionIndex][0];
+  chooseA.textContent = questions[questionIndex][1];
+  chooseB.textContent = questions[questionIndex][2];
+  chooseC.textContent = questions[questionIndex][3];
+  chooseD.textContent = questions[questionIndex][4];
+}
+
+function checkAnswerA() {
+  if (questions[questionIndex][1] === answers[questionIndex]) {
+    correctAnswer();
+  } else {
+    incorrectAnswer();
+  }
+}
+
+function checkAnswerB() {
+  if (questions[questionIndex][2] === answers[questionIndex]) {
+    correctAnswer();
+  } else {
+    incorrectAnswer();
+  }
+}
+
+function checkAnswerC() {
+  if (questions[questionIndex][3] === answers[questionIndex]) {
+    correctAnswer();
+  } else {
+    incorrectAnswer();
+  }
+}
+
+function checkAnswerD() {
+  if (questions[questionIndex][4] === answers[questionIndex]) {
+    correctAnswer();
+  } else {
+    incorrectAnswer();
+  }
+}
+
+function disableChoices() {
+  chooseA.disabled = true;
+  chooseB.disabled = true;
+  chooseC.disabled = true;
+  chooseD.disabled = true;
+}
+
+function enableChoices() {
+  chooseA.disabled = false;
+  chooseB.disabled = false;
+  chooseC.disabled = false;
+  chooseD.disabled = false;
+}
+function correctAnswer() {
+  disableChoices();
+  questionIndex++;
+  questionFeedback.textContent = "Correct!";
+  setTimeout(nextQuestion, 1000);
+}
+
+function incorrectAnswer() {
+  disableChoices();
+  time = time - 15;
+  questionIndex++;
+  questionFeedback.textContent = "Incorrect";
+  if (questionIndex === questions.length) {
+    score = time;
+    console.log(score);
+    clearInterval(timeIntertval);
+  }
+  setTimeout(nextQuestion, 1000);
 }
 
 startButton.addEventListener("click", startQuiz);
+chooseA.addEventListener("click", checkAnswerA);
+chooseB.addEventListener("click", checkAnswerB);
+chooseC.addEventListener("click", checkAnswerC);
+chooseD.addEventListener("click", checkAnswerD);

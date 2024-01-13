@@ -16,7 +16,7 @@ button {
   background-color: var(--gray);
   border-color: var(--lightGreen);
   border-width: 10px;
-  margin: 10%;
+  margin: 1%;
   color: var(--light);
 }
 
