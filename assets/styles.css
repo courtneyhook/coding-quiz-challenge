@@ -1,0 +1,25 @@
+:root {
+  --dark: #0d0a0b;
+  --gray: #454955;
+  --light: #f3eff5;
+  --lightGreen: #72b01d;
+  --darkGreen: #3f7d20;
+}
+body {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+button {
+  min-width: 150px;
+  min-height: 25px;
+  background-color: var(--gray);
+  border-color: var(--lightGreen);
+  border-width: 10px;
+  margin: 10%;
+  color: var(--light);
+}
+
+li {
+  display: inline;
+}
