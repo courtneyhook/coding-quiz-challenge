@@ -7,12 +7,16 @@ var chooseD = document.getElementById("choice-d");
 var timer = document.getElementById("timer");
 var startButton = document.getElementById("start-button");
 var questionFeedback = document.getElementById("feedback");
+var gameScore = document.getElementById("game-score");
+var userInitials = document.getElementById("initials");
+var submitName = document.getElementById("submit");
 
 //variables
 var highScore = 0;
 var time = 100;
 var questionIndex = 0;
 var score;
+var user;
 
 // question set
 var questions = [
@@ -49,6 +53,9 @@ $("#choice-a").hide();
 $("#choice-b").hide();
 $("#choice-c").hide();
 $("#choice-d").hide();
+$("#reset-score").hide();
+$("#submit").hide();
+$("#initials").hide();
 
 //this function will get called when the start button is clicked
 function setTimer() {
@@ -64,7 +71,7 @@ function setTimer() {
     }
     if (questionIndex === questions.length) {
       clearInterval(timeIntertval);
-      setTimeout(gameOver, 1000);
+      gameOver();
     }
   }, 1000);
 }
@@ -101,8 +108,10 @@ function nextQuestion() {
 function checkAnswerA() {
   if (questions[questionIndex][1] === answers[questionIndex]) {
     correctAnswer();
+    chooseA.style.backgroundColor = "#72b01d";
   } else {
     incorrectAnswer();
+    chooseA.style.backgroundColor = "#bc4749";
   }
 }
 
@@ -110,8 +119,10 @@ function checkAnswerA() {
 function checkAnswerB() {
   if (questions[questionIndex][2] === answers[questionIndex]) {
     correctAnswer();
+    chooseB.style.backgroundColor = "#72b01d";
   } else {
     incorrectAnswer();
+    chooseB.style.backgroundColor = "#bc4749";
   }
 }
 
@@ -119,8 +130,10 @@ function checkAnswerB() {
 function checkAnswerC() {
   if (questions[questionIndex][3] === answers[questionIndex]) {
     correctAnswer();
+    chooseC.style.backgroundColor = "#72b01d";
   } else {
     incorrectAnswer();
+    chooseC.style.backgroundColor = "#bc4749";
   }
 }
 
@@ -128,8 +141,10 @@ function checkAnswerC() {
 function checkAnswerD() {
   if (questions[questionIndex][4] === answers[questionIndex]) {
     correctAnswer();
+    chooseD.style.backgroundColor = "#72b01d";
   } else {
     incorrectAnswer();
+    chooseD.style.backgroundColor = "#bc4749";
   }
 }
 
@@ -147,6 +162,10 @@ function enableChoices() {
   chooseB.disabled = false;
   chooseC.disabled = false;
   chooseD.disabled = false;
+  chooseA.style.backgroundColor = "#454955";
+  chooseB.style.backgroundColor = "#454955";
+  chooseC.style.backgroundColor = "#454955";
+  chooseD.style.backgroundColor = "#454955";
 }
 
 //this will be called if the user answers correctly; it will give the feedback of correct, and advance to the next question
@@ -160,13 +179,17 @@ function correctAnswer() {
     setTimeout(nextQuestion, 1000);
   }
 }
-
+//this function runs when the time goes to zero or the user has answered all questions; it will display the final score and as for the user's name for the high score board
 function gameOver() {
   hideQuestion();
-  score = time;
-  document.getElementById("game-score").textContent = `Your score is ${score}.`;
+  displaySubmit();
+  if (time >= 0) {
+    score = time;
+    gameScore.textContent = `Your final score is ${score}.`;
+  } else {
+    gameScore.textContent = "Your final score is 0.";
+  }
 }
-
 //this will be called if the user answers incorrectly; it will give the feedback of incorrect, subtract 15 seconds from the time and advance to the next question
 function incorrectAnswer() {
   disableChoices();
@@ -180,6 +203,11 @@ function incorrectAnswer() {
   }
 }
 
+function displaySubmit() {
+  $("#initials").show();
+  $("#submit").show();
+}
+
 //hides questions at the end of the game
 function hideQuestion() {
   $("#quiz-question").hide();
@@ -190,8 +218,22 @@ function hideQuestion() {
   $("#feedback").hide();
 }
 
+function submitUser() {
+  console.log(userInitials.value);
+  userInitials.value = "";
+  $("#initials").hide();
+  $("#submit").hide();
+  showLeaderBoard();
+}
+
+function showLeaderBoard() {
+  user = userInitials.value;
+  localStorage.setItem(user, score);
+}
+
 startButton.addEventListener("click", startQuiz);
 chooseA.addEventListener("click", checkAnswerA);
 chooseB.addEventListener("click", checkAnswerB);
 chooseC.addEventListener("click", checkAnswerC);
 chooseD.addEventListener("click", checkAnswerD);
+submitName.addEventListener("click", submitUser);

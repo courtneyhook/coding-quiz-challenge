@@ -10,25 +10,36 @@ body {
   color: var(--light);
 }
 
-button {
+.nav {
+  font-size: 1.5em;
+}
+button,
+#submit {
   min-width: 150px;
   min-height: 25px;
   background-color: var(--gray);
   border-radius: 8px;
   border: 2px solid var(--lightGreen);
   box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
-
+  font-size: 2rem;
   margin: 1%;
   color: var(--light);
 }
 
+button:hover,
+#submit:hover {
+  background-color: var(--lightGreen);
+  color: var(--dark);
+}
 li {
   display: inline;
 }
 
 .main {
   margin: auto;
+  margin-top: 200px;
   width: 50%;
+  font-size: 2rem;
 }
 
 #timer {
@@ -46,4 +57,38 @@ li {
 
 #quiz-question {
   font-family: Fira Code;
+}
+
+#start-game {
+  margin: auto;
+  margin-top: 250px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#recap {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-score {
+  text-align: center;
+  font-size: 2rem;
+}
+
+#submit,
+#initials {
+}
+
+#initials {
+  border-radius: 8px;
+  border: 2px solid var(--lightGreen);
+  box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
+  font-size: 2rem;
+  margin: 1%;
 }
