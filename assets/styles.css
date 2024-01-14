@@ -14,12 +14,36 @@ button {
   min-width: 150px;
   min-height: 25px;
   background-color: var(--gray);
-  border-color: var(--lightGreen);
-  border-width: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--lightGreen);
+  box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
+
   margin: 1%;
   color: var(--light);
 }
 
 li {
   display: inline;
+}
+
+.main {
+  margin: auto;
+  width: 50%;
+}
+
+#timer {
+  float: right;
+  margin-right: 20px;
+}
+
+#choice-a,
+#choice-b,
+#choice-c,
+#choice-d {
+  display: block;
+  margin: 10px 50px;
+}
+
+#quiz-question {
+  font-family: Fira Code;
 }

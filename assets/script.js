@@ -7,6 +7,7 @@ var chooseD = document.getElementById("choice-d");
 var timer = document.getElementById("timer");
 var startButton = document.getElementById("start-button");
 var questionFeedback = document.getElementById("feedback");
+
 //variables
 var highScore = 0;
 var time = 100;
@@ -56,12 +57,19 @@ function setTimer() {
     time--; //subtract a second
     timer.textContent = `Time Remaining: ${time}`; //update text content
     //if the time is zero the counting will stop by calling clearInterval on the variable that holds the function
-    if (time === 0) {
+    if (time <= 0) {
       clearInterval(timeIntertval);
+      timer.textContent = "Time Remaining: 0";
+      gameOver();
+    }
+    if (questionIndex === questions.length) {
+      clearInterval(timeIntertval);
+      setTimeout(gameOver, 1000);
     }
   }, 1000);
 }
 
+//when the start button is clicked, the first question is shown
 function displayQuestion() {
   $("#quizQuestion").show();
   $("#choice-a").show();
@@ -69,18 +77,17 @@ function displayQuestion() {
   $("#choice-c").show();
   $("#choice-d").show();
 }
+
+//when this function starts the question and choices should show up, the timer should start, the start button should hide
 function startQuiz() {
-  //when this function starts the question and choices should show up, the timer should start, the start button should hide
   setTimer();
   startButton.style.display = "none";
   displayQuestion();
   nextQuestion();
 }
 
+//when the previous question is checked, it will call this function
 function nextQuestion() {
-  if (questionIndex === questions.length) {
-    score = time;
-  }
   enableChoices();
   feedback.textContent = "";
   quizQuestion.textContent = questions[questionIndex][0];
@@ -90,6 +97,7 @@ function nextQuestion() {
   chooseD.textContent = questions[questionIndex][4];
 }
 
+//this will call if the user chooses A
 function checkAnswerA() {
   if (questions[questionIndex][1] === answers[questionIndex]) {
     correctAnswer();
@@ -98,6 +106,7 @@ function checkAnswerA() {
   }
 }
 
+//this will call if the user chooses B
 function checkAnswerB() {
   if (questions[questionIndex][2] === answers[questionIndex]) {
     correctAnswer();
@@ -106,6 +115,7 @@ function checkAnswerB() {
   }
 }
 
+//this will call if the user chooses C
 function checkAnswerC() {
   if (questions[questionIndex][3] === answers[questionIndex]) {
     correctAnswer();
@@ -114,6 +124,7 @@ function checkAnswerC() {
   }
 }
 
+//this will call if the user chooses D
 function checkAnswerD() {
   if (questions[questionIndex][4] === answers[questionIndex]) {
     correctAnswer();
@@ -122,6 +133,7 @@ function checkAnswerD() {
   }
 }
 
+//this will disable the choices for an interval of time for the feedback to be able to be dispayed
 function disableChoices() {
   chooseA.disabled = true;
   chooseB.disabled = true;
@@ -129,30 +141,53 @@ function disableChoices() {
   chooseD.disabled = true;
 }
 
+//this will enable the choices when the next question is displayed
 function enableChoices() {
   chooseA.disabled = false;
   chooseB.disabled = false;
   chooseC.disabled = false;
   chooseD.disabled = false;
 }
+
+//this will be called if the user answers correctly; it will give the feedback of correct, and advance to the next question
 function correctAnswer() {
   disableChoices();
   questionIndex++;
   questionFeedback.textContent = "Correct!";
-  setTimeout(nextQuestion, 1000);
+  if (questionIndex === questions.length) {
+    gameOver();
+  } else {
+    setTimeout(nextQuestion, 1000);
+  }
 }
 
+function gameOver() {
+  hideQuestion();
+  score = time;
+  document.getElementById("game-score").textContent = `Your score is ${score}.`;
+}
+
+//this will be called if the user answers incorrectly; it will give the feedback of incorrect, subtract 15 seconds from the time and advance to the next question
 function incorrectAnswer() {
   disableChoices();
   time = time - 15;
   questionIndex++;
-  questionFeedback.textContent = "Incorrect";
+  questionFeedback.textContent = "Incorrect!";
   if (questionIndex === questions.length) {
-    score = time;
-    console.log(score);
-    clearInterval(timeIntertval);
+    gameOver();
+  } else {
+    setTimeout(nextQuestion, 1000);
   }
-  setTimeout(nextQuestion, 1000);
+}
+
+//hides questions at the end of the game
+function hideQuestion() {
+  $("#quiz-question").hide();
+  $("#choice-a").hide();
+  $("#choice-b").hide();
+  $("#choice-c").hide();
+  $("#choice-d").hide();
+  $("#feedback").hide();
 }
 
 startButton.addEventListener("click", startQuiz);
