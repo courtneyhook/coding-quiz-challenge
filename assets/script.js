@@ -13,6 +13,7 @@ var submitName = document.getElementById("submit");
 
 //variables
 var highScore = 0;
+var highScorer;
 var time = 100;
 var questionIndex = 0;
 var score;
@@ -219,7 +220,7 @@ function hideQuestion() {
 }
 
 function submitUser() {
-  console.log(userInitials.value);
+  user = userInitials.value;
   userInitials.value = "";
   $("#initials").hide();
   $("#submit").hide();
@@ -227,8 +228,14 @@ function submitUser() {
 }
 
 function showLeaderBoard() {
-  user = userInitials.value;
-  localStorage.setItem(user, score);
+  localStorage.setItem("username", user);
+  localStorage.setItem("score", score);
+  if (score > highScore) {
+    highScore = score;
+    highScorer = user;
+    localStorage.setItem("High Scorer", highScorer);
+    localStorage.setItem("High Score", highScore);
+  }
 }
 
 startButton.addEventListener("click", startQuiz);
