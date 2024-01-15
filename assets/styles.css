@@ -11,7 +11,7 @@ body {
 }
 
 .nav {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 button,
 #submit {
@@ -21,7 +21,7 @@ button,
   border-radius: 8px;
   border: 2px solid var(--lightGreen);
   box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
-  font-size: 2rem;
+  font-size: 1.5em;
   margin: 1%;
   color: var(--light);
 }
@@ -40,7 +40,8 @@ li {
   margin: auto;
   margin-top: 200px;
   width: 50%;
-  font-size: 2rem;
+  font-size: 1em;
+  text-align: center;
 }
 
 #timer {
@@ -79,20 +80,20 @@ li {
 
 #game-score {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 #initials {
   border-radius: 8px;
   border: 2px solid var(--lightGreen);
   box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
-  font-size: 2rem;
+  font-size: 2em;
   margin: 1%;
 }
 
 #leader,
 #leader-score {
-  font-size: 1em;
+  font-size: 2em;
   margin: auto;
   width: 50%;
   display: flex;

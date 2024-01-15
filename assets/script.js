@@ -24,31 +24,89 @@ var user;
 
 // question set
 var questions = [
-  ["question1", "choiceA1", "choiceB1", "choiceC1", "choiceD1"],
-  ["question2", "choiceA2", "choiceB2", "choiceC2", "choiceD2"],
-  ["question3", "choiceA3", "choiceB3", "choiceC3", "choiceD3"],
-  ["question4", "choiceA4", "choiceB4", "choiceC4", "choiceD4"],
-  ["question5", "choiceA5", "choiceB5", "choiceC5", "choiceD5"],
-  ["question6", "choiceA6", "choiceB6", "choiceC6", "choiceD6"],
-  ["question7", "choiceA7", "choiceB7", "choiceC7", "choiceD7"],
-  ["question8", "choiceA8", "choiceB8", "choiceC8", "choiceD8"],
-  ["question9", "choiceA9", "choiceB9", "choiceC9", "choiceD9"],
-  ["question10", "choiceA10", "choiceB10", "choiceC10", "choiceD10"],
-  ["question11", "choiceA11", "choiceB11", "choiceC11", "choiceD11"],
+  [
+    "Which of the following is not a primitive data type in JavaScript?",
+    "number",
+    "string",
+    "boolean",
+    "object",
+  ],
+  [
+    "What does the 'type of' operator do in JavaScript?",
+    "returns the data type of a variable",
+    "checks if variable is defined",
+    "assigns a value to a variable",
+    "concatenates two strings",
+  ],
+  [
+    "What is the output of the following code: console.log(2 + '2');",
+    "'4'",
+    "'22'",
+    "4",
+    "22",
+  ],
+  [
+    "Which of the following is not a comparison operator in JavaScript?",
+    "==",
+    "===",
+    "!=",
+    "=<",
+  ],
+  [
+    "What does the 'NaN' value represent in Javascript?",
+    "Not a number",
+    "Null value",
+    "Undefined value",
+    "Boolean value",
+  ],
+  [
+    "What is the correct way to declare a variable in JavaScript?",
+    "var x === 5;",
+    "variable x = 5;",
+    "x = 5;",
+    "let x = 5;",
+  ],
+  [
+    "What does the 'this' keyword refer to in JavaScript?",
+    "The current function",
+    "The global object",
+    "The object that the function belongs to",
+    "The parent object of the current object",
+  ],
+  [
+    "Which of the following is not a valid way to declare a function in JavaScript?",
+    "function myFunction() {}",
+    "var myFunction = function() {}",
+    "() => {}",
+    "function = {}",
+  ],
+  [
+    "What is the output of the following code: console.log(typeof undefined);",
+    "undefined",
+    "null",
+    "object",
+    "string",
+  ],
+  [
+    "Which of the following is not a loop in JavaScript?",
+    "for",
+    "while",
+    "do...while",
+    "next",
+  ],
 ];
 
 var answers = [
-  "choiceA1",
-  "choiceB2",
-  "choiceC3",
-  "choiceD4",
-  "choiceA5",
-  "choiceB6",
-  "choiceC7",
-  "choiceD8",
-  "choiceA9",
-  "choiceB10",
-  "choiceC11",
+  "object",
+  "returns the data type of a variable",
+  "'22'",
+  "=<",
+  "Not a number",
+  "let x = 5;",
+  "The object that the function belongs to",
+  "function = {}",
+  "undefined",
+  "next",
 ];
 
 //before the game starts, the question and choices will be hidden
@@ -77,6 +135,7 @@ function setTimer() {
       gameOver();
     }
     if (questionIndex === questions.length) {
+      score = time;
       clearInterval(timeIntertval);
       gameOver();
     }
@@ -199,7 +258,7 @@ function correctAnswer() {
 //this function runs when the time goes to zero or the user has answered all questions; it will display the final score and as for the user's name for the high score board
 function gameOver() {
   hideQuestion();
-  displaySubmit();
+
   if (time >= 0) {
     score = time;
     gameScore.textContent = `Your final score is ${score}.`;
@@ -207,6 +266,7 @@ function gameOver() {
     time = 0;
     gameScore.textContent = "Your final score is 0.";
   }
+  displaySubmit();
 }
 //this will be called if the user answers incorrectly; it will give the feedback of incorrect, subtract 15 seconds from the time and advance to the next question
 function incorrectAnswer() {
