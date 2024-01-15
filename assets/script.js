@@ -90,6 +90,12 @@ function displayQuestion() {
   $("#choice-b").show();
   $("#choice-c").show();
   $("#choice-d").show();
+  $("#reset-score").hide();
+  $("#submit").hide();
+  $("#initials").hide();
+  $("#go-back").hide();
+  $("#leader").hide();
+  $("#leader-score").hide();
 }
 
 //when this function starts the question and choices should show up, the timer should start, the start button should hide
@@ -99,7 +105,7 @@ function startQuiz() {
   console.log(highScore);
   console.log(highScorer);
   setTimer();
-  startButton.style.display = "none";
+  $("#start-button").hide();
   displayQuestion();
   nextQuestion();
 }
@@ -249,29 +255,44 @@ function showLeaderBoard() {
     localStorage.setItem("High Scorer", highScorer);
     localStorage.setItem("High Score", highScore);
   }
-}
-
-function highScoreList() {
-  $("#high-scores").hide();
-  $("#go-back").show();
-  $("#start-game").hide();
   $("#leader").show();
   $("#leader-score").show();
 
   var whoLeads = localStorage.getItem("High Scorer");
   var leadScore = localStorage.getItem("High Score");
-  leader.textContent = `The leader is ${whoLeads}`;
+  leader.textContent = `The leader is ${whoLeads}.`;
   document.getElementById(
     "leader-score"
-  ).textContent = `The high score is ${leadScore}`;
+  ).textContent = `The high score is ${leadScore}.`;
 }
 
+//this function shows who is leading and the leading score
+function highScoreList() {
+  $("#high-scores").hide();
+  $("#go-back").show();
+  $("#start-button").hide();
+  $("#leader").show();
+  $("#leader-score").show();
+  $("#game-score").hide();
+  var whoLeads = localStorage.getItem("High Scorer");
+  var leadScore = localStorage.getItem("High Score");
+  leader.textContent = `The leader is ${whoLeads}.`;
+  document.getElementById(
+    "leader-score"
+  ).textContent = `The high score is ${leadScore}.`;
+}
+
+//this function returns user to the start screen
 function goBack() {
   $("#high-scores").show();
   $("#go-back").hide();
-  $("#start-game").show();
   $("#leader").hide();
   $("#leader-score").hide();
+  if (questionIndex < questions.length) {
+    $("#start-button").hide();
+  } else {
+    $("#start-button").show();
+  }
 }
 
 startButton.addEventListener("click", startQuiz);

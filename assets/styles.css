@@ -35,7 +35,8 @@ li {
   display: inline;
 }
 
-.main {
+.main,
+.scores {
   margin: auto;
   margin-top: 200px;
   width: 50%;
@@ -61,7 +62,7 @@ li {
 
 #start-game {
   margin: auto;
-  margin-top: 250px;
+  margin-top: 200px;
   width: 50%;
   display: flex;
   justify-content: center;
@@ -87,4 +88,18 @@ li {
   box-shadow: 0.5px 0.5px 5px 0.5px var(--lightGreen);
   font-size: 2rem;
   margin: 1%;
+}
+
+#leader,
+#leader-score {
+  font-size: 1em;
+  margin: auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#initials {
+  margin-left: 150px;
 }
