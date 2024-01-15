@@ -219,6 +219,7 @@ function hideQuestion() {
   $("#feedback").hide();
 }
 
+//this function gets the user name and clears the input
 function submitUser() {
   user = userInitials.value;
   userInitials.value = "";
@@ -227,6 +228,7 @@ function submitUser() {
   showLeaderBoard();
 }
 
+//this function records the current user and score as well as the high scorer and the high score
 function showLeaderBoard() {
   localStorage.setItem("username", user);
   localStorage.setItem("score", score);
