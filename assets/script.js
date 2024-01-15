@@ -10,10 +10,13 @@ var questionFeedback = document.getElementById("feedback");
 var gameScore = document.getElementById("game-score");
 var userInitials = document.getElementById("initials");
 var submitName = document.getElementById("submit");
+var viewHighScore = document.getElementById("high-scores");
+var leader = document.getElementById("leader");
+var back = document.getElementById("go-back");
 
 //variables
 var highScore = 0;
-var highScorer;
+var highScorer = "";
 var time = 100;
 var questionIndex = 0;
 var score;
@@ -57,6 +60,9 @@ $("#choice-d").hide();
 $("#reset-score").hide();
 $("#submit").hide();
 $("#initials").hide();
+$("#go-back").hide();
+$("#leader").hide();
+$("#leader-score").hide();
 
 //this function will get called when the start button is clicked
 function setTimer() {
@@ -88,6 +94,10 @@ function displayQuestion() {
 
 //when this function starts the question and choices should show up, the timer should start, the start button should hide
 function startQuiz() {
+  highScore = localStorage.getItem("High Score");
+  highScorer = localStorage.getItem("High Scorer");
+  console.log(highScore);
+  console.log(highScorer);
   setTimer();
   startButton.style.display = "none";
   displayQuestion();
@@ -188,6 +198,7 @@ function gameOver() {
     score = time;
     gameScore.textContent = `Your final score is ${score}.`;
   } else {
+    time = 0;
     gameScore.textContent = "Your final score is 0.";
   }
 }
@@ -240,9 +251,34 @@ function showLeaderBoard() {
   }
 }
 
+function highScoreList() {
+  $("#high-scores").hide();
+  $("#go-back").show();
+  $("#start-game").hide();
+  $("#leader").show();
+  $("#leader-score").show();
+
+  var whoLeads = localStorage.getItem("High Scorer");
+  var leadScore = localStorage.getItem("High Score");
+  leader.textContent = `The leader is ${whoLeads}`;
+  document.getElementById(
+    "leader-score"
+  ).textContent = `The high score is ${leadScore}`;
+}
+
+function goBack() {
+  $("#high-scores").show();
+  $("#go-back").hide();
+  $("#start-game").show();
+  $("#leader").hide();
+  $("#leader-score").hide();
+}
+
 startButton.addEventListener("click", startQuiz);
 chooseA.addEventListener("click", checkAnswerA);
 chooseB.addEventListener("click", checkAnswerB);
 chooseC.addEventListener("click", checkAnswerC);
 chooseD.addEventListener("click", checkAnswerD);
 submitName.addEventListener("click", submitUser);
+viewHighScore.addEventListener("click", highScoreList);
+back.addEventListener("click", goBack);

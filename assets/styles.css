@@ -81,10 +81,6 @@ li {
   font-size: 2rem;
 }
 
-#submit,
-#initials {
-}
-
 #initials {
   border-radius: 8px;
   border: 2px solid var(--lightGreen);
