@@ -38,10 +38,9 @@ li {
 .main,
 .scores {
   margin: auto;
-  margin-top: 200px;
-  width: 50%;
+  margin-top: 100px;
+  width: 60%;
   font-size: 1em;
-  text-align: center;
 }
 
 #timer {
@@ -55,6 +54,7 @@ li {
 #choice-d {
   display: block;
   margin: 10px 50px;
+  text-align: left;
 }
 
 #quiz-question {
@@ -103,4 +103,13 @@ li {
 
 #initials {
   margin-left: 150px;
+}
+
+#message {
+  text-align: center;
+  font-family: Fira code;
+  font-size: 2em;
+}
+
+#play-again {
 }

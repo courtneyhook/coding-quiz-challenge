@@ -13,6 +13,7 @@ var submitName = document.getElementById("submit");
 var viewHighScore = document.getElementById("high-scores");
 var leader = document.getElementById("leader");
 var back = document.getElementById("go-back");
+var tryAgain = document.getElementById("play-again");
 
 //variables
 var highScore = 0;
@@ -121,6 +122,7 @@ $("#initials").hide();
 $("#go-back").hide();
 $("#leader").hide();
 $("#leader-score").hide();
+$("#play-again").hide();
 
 //this function will get called when the start button is clicked
 function setTimer() {
@@ -144,7 +146,7 @@ function setTimer() {
 
 //when the start button is clicked, the first question is shown
 function displayQuestion() {
-  $("#quizQuestion").show();
+  $("#quiz-question").show();
   $("#choice-a").show();
   $("#choice-b").show();
   $("#choice-c").show();
@@ -155,14 +157,15 @@ function displayQuestion() {
   $("#go-back").hide();
   $("#leader").hide();
   $("#leader-score").hide();
+  $("#message").hide();
+  $("#play-again").hide();
+  $("#game-score").hide();
 }
 
 //when this function starts the question and choices should show up, the timer should start, the start button should hide
 function startQuiz() {
   highScore = localStorage.getItem("High Score");
   highScorer = localStorage.getItem("High Scorer");
-  console.log(highScore);
-  console.log(highScorer);
   setTimer();
   $("#start-button").hide();
   displayQuestion();
@@ -258,12 +261,13 @@ function correctAnswer() {
 //this function runs when the time goes to zero or the user has answered all questions; it will display the final score and as for the user's name for the high score board
 function gameOver() {
   hideQuestion();
+  $("#game-score").show();
 
   if (time >= 0) {
     score = time;
     gameScore.textContent = `Your final score is ${score}.`;
   } else {
-    time = 0;
+    score = 0;
     gameScore.textContent = "Your final score is 0.";
   }
   displaySubmit();
@@ -317,13 +321,11 @@ function showLeaderBoard() {
   }
   $("#leader").show();
   $("#leader-score").show();
-
+  gameScore.textContent = `${user}: ${score}`;
   var whoLeads = localStorage.getItem("High Scorer");
   var leadScore = localStorage.getItem("High Score");
-  leader.textContent = `The leader is ${whoLeads}.`;
-  document.getElementById(
-    "leader-score"
-  ).textContent = `The high score is ${leadScore}.`;
+  leader.textContent = `The leader is ${whoLeads} with a high score of ${leadScore}.`;
+  $("#play-again").show();
 }
 
 //this function shows who is leading and the leading score
@@ -336,10 +338,7 @@ function highScoreList() {
   $("#game-score").hide();
   var whoLeads = localStorage.getItem("High Scorer");
   var leadScore = localStorage.getItem("High Score");
-  leader.textContent = `The leader is ${whoLeads}.`;
-  document.getElementById(
-    "leader-score"
-  ).textContent = `The high score is ${leadScore}.`;
+  leader.textContent = `${whoLeads}: ${leadScore}`;
 }
 
 //this function returns user to the start screen
@@ -355,6 +354,28 @@ function goBack() {
   }
 }
 
+function playAgain() {
+  time = 100;
+  questionIndex = 0;
+  score;
+  user;
+  $("#quizQuestion").hide();
+  $("#choice-a").hide();
+  $("#choice-b").hide();
+  $("#choice-c").hide();
+  $("#choice-d").hide();
+  $("#reset-score").hide();
+  $("#submit").hide();
+  $("#initials").hide();
+  $("#go-back").hide();
+  $("#leader").hide();
+  $("#leader-score").hide();
+  $("#play-again").hide();
+  $("#start-button").show();
+  $("#game-score").hide();
+  $("#message").show();
+}
+
 startButton.addEventListener("click", startQuiz);
 chooseA.addEventListener("click", checkAnswerA);
 chooseB.addEventListener("click", checkAnswerB);
@@ -363,3 +384,4 @@ chooseD.addEventListener("click", checkAnswerD);
 submitName.addEventListener("click", submitUser);
 viewHighScore.addEventListener("click", highScoreList);
 back.addEventListener("click", goBack);
+tryAgain.addEventListener("click", playAgain);
